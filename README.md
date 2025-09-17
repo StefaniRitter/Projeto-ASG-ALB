@@ -99,6 +99,49 @@ Significa reduzir recursos quando a carga diminui, para evitar pagar por recurso
 * **Exemplo de regra:**
 “Se a utilização média de CPU for menor que 30% por 10 minutos, remova 1 instância.”
 
+## 🔑 Por que usar Load Balancer e Auto Scaling juntos
+
+Quando se usa Auto Scaling:
+* O número de instâncias muda automaticamente.
+* O Load Balancer garante que os usuários sempre sejam redirecionados apenas para as instâncias ativas e saudáveis.
+
+Ou seja:
+
+* Auto Scaling escalou para cima -> Load Balancer começa a mandar tráfego para as novas instâncias.
+* Auto Scaling escalou para baixo -> Load Balancer para de mandar tráfego para as instâncias que vão ser desligadas.
+* Usuários nunca percebem quando uma instância entra ou sai
+
+## ⚠️ Pontos importantes:
+
+* Se alguma coisa for mudada na instância (como versão da aplicação, por exemplo), se cria uma nova versão do Launch Template para que as próximas instâncias usem a configuração atualizada.
+
+* Sem Launch Template, o Auto Scaling não sabe como criar as instâncias.
+
+* Grupos de segurança:
+  * O grupo de segurança do (Application) Load Balancer deve permitir tráfego externo para o ALB, ou seja, regra de entrada HTTP (porta 80) com origem = 0.0.0.0/0 (qualquer IP);
+  * O grupo de segurança das instâncias EC2 deve permitir tráfego somente do Load Balancer para as instâncias, ou seja, regras de entrada HTTP (porta 80) com origem = grupo de segurança do Load Balancer e opcionalmente SSH (porta 22) com origem = IP fixo (para administração);
+
+
+ ## 💡 Principais Aprendizados
+
+O projeto demonstrou que o uso combinado de Load Balancer e Auto Scaling é fundamental para construir aplicações modernas na nuvem, resultando em uma infraestrutura eficiente, confiável e econômica.
+
+Com o Load Balancer, o tráfego é distribuído de forma inteligente entre as instâncias, garantindo alta disponibilidade e melhor experiência para os usuários, mesmo que uma instância apresente falhas.
+
+Já o Auto Scaling permite que a quantidade de recursos seja ajustada automaticamente conforme a demanda, evitando desperdício de dinheiro em horários de baixo uso e garantindo performance durante picos de acesso.
+
+Em conjunto, esses recursos proporcionam:
+
+* Alta disponibilidade: a aplicação continua acessível mesmo em caso de falhas.
+* Escalabilidade automática: aumenta ou reduz capacidade sem intervenção manual.
+* Otimização de custos: paga-se apenas pelos recursos realmente necessários.
+* Desempenho consistente: mantém a aplicação rápida mesmo com aumento de tráfego.
+* Gerenciamento simplificado: menos esforço operacional, já que a AWS faz o trabalho pesado.
+
+Assim, utilizar Load Balancer e Auto Scaling é uma prática essencial para aplicações modernas que precisam ser escaláveis, resilientes e econômicas na nuvem.
+ 
+
+
 
 
 
