@@ -45,7 +45,7 @@ Essa etapa acontece no Console da AWS, em EC2 -> Load Balancers -> Criar Load Ba
 ## 🖥️ Auto Scaling
 
 ### O que é?
-Auto Scaling é um recurso que permite que sua infraestrutura aumente ou diminua recursos automaticamente, de acordo com a demanda.
+Auto Scaling é um recurso que permite que a infraestrutura aumente ou diminua recursos automaticamente, de acordo com a demanda.
 
 **Se trata de um mecanismo automatico que:**
 * Monitora métricas (CPU, memória, requisições, filas);
